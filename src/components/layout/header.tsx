@@ -1,10 +1,11 @@
 import { cn } from '@/lib/utils';
-// import { MobileSidebar } from "./mobile-sidebar";
-// import { UserNav } from "./user-nav";
 import Link from 'next/link';
 import { AccountDropdown } from './account-dropdown';
 import { Notification } from './notification';
 import { Search } from './search';
+import { accountData } from '@/providers/data';
+import { notificationData } from '@/providers/data';
+
 export default function Header() {
   return (
     <div className="fixed top-0 left-0 right-0 supports-backdrop-blur:bg-background/60 border-b bg-background/95 backdrop-blur z-20">
@@ -32,8 +33,8 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <Search />
-          <Notification />
-          <AccountDropdown />
+          <Notification data={notificationData}/>
+          <AccountDropdown data={accountData} />
         </div>
       </nav>
     </div>

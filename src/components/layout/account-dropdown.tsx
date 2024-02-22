@@ -11,8 +11,12 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { accountDataProps } from '@/providers/data';
 
-export function AccountDropdown() {
+interface AccountDropdownProps {
+  data: accountDataProps;
+}
+export const AccountDropdown: React.FC<AccountDropdownProps> = ({ data }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,36 +30,19 @@ export function AccountDropdown() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">
-                Admin
-            </p>
+            <p className="text-sm font-medium leading-none">{data?.userName}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              admin@admin.tsx
+              {data?.email}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
+          {data?.menuItem?.map((data, index) => (
+            <DropdownMenuItem key={index}>{data}</DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => {}}>
-          Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
